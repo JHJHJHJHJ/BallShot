@@ -30,28 +30,12 @@ public class Ball : MonoBehaviour
         Shot();
     }
 
-    // private void OnDrawGizmos() 
-    // {
-    //     Gizmos.DrawSphere(collidedPoint, 0.1f);
-    // }
-
     private void OnCollisionEnter2D(Collision2D other)
     {
         Land(other);
     }
 
-    void Land(Collision2D other)
-    {
-        canFly = true;
-        isFlying = false;
-
-        animator.SetBool("isFlying", false);
-
-        Vector2 collidedPos = other.collider.ClosestPoint(transform.position);
-        Vector2 directionToLook = (Vector2)transform.position - collidedPos;
-
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, directionToLook);
-    }
+    ////////////////////////////////////////////////
 
     void HandleRay()
     {
@@ -77,6 +61,19 @@ public class Ball : MonoBehaviour
         {
             rigidbody2D.velocity = currentDirection * Time.deltaTime * moveSpeed;
         }
+    }
+
+    void Land(Collision2D other)
+    {
+        canFly = true;
+        isFlying = false;
+
+        animator.SetBool("isFlying", false);
+
+        Vector2 collidedPos = other.collider.ClosestPoint(transform.position);
+        Vector2 directionToLook = (Vector2)transform.position - collidedPos;
+
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, directionToLook);
     }
 
     void SetDirection()
