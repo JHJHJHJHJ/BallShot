@@ -9,34 +9,48 @@ public class Ball : MonoBehaviour
     bool canFly = true;
     bool isFlying = false;
 
-    // Shot
+    // Shot Variables
     Vector2 currentDirection;
 
     // Components
     Rigidbody2D rigidbody2D;
     Collider2D collider2D;
     Animator animator;
-    
 
-    private void Awake() 
+    private void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         collider2D = GetComponent<Collider2D>();
-        animator = GetComponent<Animator>();   
+        animator = GetComponent<Animator>();
     }
 
-    private void Update() 
+    private void Update()
     {
-        HandleRay();    
+        HandleRay();
         Shot();
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    // private void OnDrawGizmos() 
+    // {
+    //     Gizmos.DrawSphere(collidedPoint, 0.1f);
+    // }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        Land(other);
+    }
+
+    void Land(Collision2D other)
     {
         canFly = true;
         isFlying = false;
 
         animator.SetBool("isFlying", false);
+
+        Vector2 collidedPos = other.collider.ClosestPoint(transform.position);
+        Vector2 directionToLook = (Vector2)transform.position - collidedPos;
+
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, directionToLook);
     }
 
     void HandleRay()
@@ -51,7 +65,7 @@ public class Ball : MonoBehaviour
 
     void Shot()
     {
-        if(canFly && Input.GetMouseButtonDown(0))
+        if (canFly && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.A)))
         {
             canFly = false;
             isFlying = true;
@@ -59,7 +73,7 @@ public class Ball : MonoBehaviour
             SetDirection();
         }
 
-        if(isFlying)
+        if (isFlying)
         {
             rigidbody2D.velocity = currentDirection * Time.deltaTime * moveSpeed;
         }
@@ -71,10 +85,6 @@ public class Ball : MonoBehaviour
         mousePos = new Vector3(mousePos.x, mousePos.y, 0f);
 
         Vector3 dir = Vector3.Normalize(mousePos - transform.position);
-        
-        // print("dir: " + dir);
-        print("mag: " + Vector3.Magnitude(dir));
-        
 
         currentDirection = dir;
     }
