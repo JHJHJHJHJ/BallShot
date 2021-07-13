@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using MoreMountains.Feedbacks;
 public class Ball : MonoBehaviour
 {
     // Configs
@@ -16,6 +16,11 @@ public class Ball : MonoBehaviour
     [Header("Child")]
     [SerializeField] SpriteRenderer body = null;
     [SerializeField] AimLine aimLine = null;
+
+    [Header("MMFeedbacks")]
+    [SerializeField] MMFeedbacks shotFeedback = null;
+    [SerializeField] MMFeedbacks landFeedback = null;
+
 
 
     // Shot Variables
@@ -80,6 +85,7 @@ public class Ball : MonoBehaviour
 
                 body.color = flyColor;
                 myAnimator.SetTrigger("Fly");
+                shotFeedback.PlayFeedbacks();
             }
             else
             {
@@ -106,6 +112,7 @@ public class Ball : MonoBehaviour
 
         body.color = landColor;
         myAnimator.SetTrigger("Land");
+        landFeedback.PlayFeedbacks();
 
         collidedPos = other.collider.ClosestPoint(transform.position);
         Vector2 directionToLook = (Vector2)transform.position - collidedPos;
