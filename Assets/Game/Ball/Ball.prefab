@@ -150,6 +150,8 @@ MonoBehaviour:
     rgba: 4283553781
   body: {fileID: 1501054460916320460}
   aimLine: {fileID: 0}
+  shotFeedback: {fileID: 0}
+  landFeedback: {fileID: 0}
 --- !u!50 &1501054460385263086
 Rigidbody2D:
   serializedVersion: 4
