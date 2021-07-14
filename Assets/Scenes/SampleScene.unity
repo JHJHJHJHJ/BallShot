@@ -516,8 +516,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1487579013
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.108535044, g: 0.10346207, b: 0.14150941, a: 1}
@@ -673,8 +673,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1487579013
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.108535044, g: 0.10346207, b: 0.14150941, a: 1}
@@ -1177,8 +1177,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1487579013
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.108535044, g: 0.10346207, b: 0.14150941, a: 1}
@@ -1531,8 +1531,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1487579013
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.108535044, g: 0.10346207, b: 0.14150941, a: 1}
@@ -1676,8 +1676,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1487579013
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.108535044, g: 0.10346207, b: 0.14150941, a: 1}
@@ -1812,11 +1812,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1501054460385262995, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.14
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1501054460385262995, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.32
+      value: -0.12
       objectReference: {fileID: 0}
     - target: {fileID: 1501054460385262995, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1854,10 +1854,6 @@ PrefabInstance:
       propertyPath: aimLine
       value: 
       objectReference: {fileID: 1214135787}
-    - target: {fileID: 1501054460385263084, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
-      propertyPath: slipThreshold
-      value: 0.4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
 --- !u!1 &2341575116028237028

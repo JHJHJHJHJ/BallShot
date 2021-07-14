@@ -19,7 +19,8 @@ public class Ball : MonoBehaviour
     [Header("Child")]
     [SerializeField] SpriteRenderer body = null;
     [SerializeField] AimLine aimLine = null;
-
+    [SerializeField] ParticleSystem slipParticle = null;
+    
     [Header("MMFeedbacks")]
     [SerializeField] MMFeedbacks shotFeedback = null;
     [SerializeField] MMFeedbacks landFeedback = null;
@@ -43,7 +44,7 @@ public class Ball : MonoBehaviour
 
     private void Start() 
     {
-        myRigidbody2D.gravityScale = 0f;
+        // myRigidbody2D.gravityScale = 0f;
     }
 
     private void Update()
@@ -84,14 +85,16 @@ public class Ball : MonoBehaviour
                 canShot = false;
                 aimLine.gameObject.SetActive(false);
 
-                isFlying = true;
-                currentDirection = GetDirection();
-
                 body.color = cannotFlyColor;
                 myAnimator.SetTrigger("Fly");
                 shotFeedback.PlayFeedbacks();
 
+                slipParticle.Stop();
+
                 myRigidbody2D.gravityScale = 0f;
+
+                currentDirection = GetDirection();
+                isFlying = true;
             }
             else
             {
@@ -120,6 +123,8 @@ public class Ball : MonoBehaviour
         myAnimator.SetTrigger("Land");
         landFeedback.PlayFeedbacks();
 
+        slipParticle.Stop();
+
         collidedPos = other.collider.ClosestPoint(transform.position);
         Vector2 directionToLook = (Vector2)transform.position - collidedPos;
 
@@ -132,7 +137,7 @@ public class Ball : MonoBehaviour
 
     void TriggerStatus()
     {
-        print(Mathf.Abs(transform.position.x - collidedPos.x));
+        // print(Mathf.Abs(transform.position.x - collidedPos.x));
 
         myAnimator.ResetTrigger("EndureSlip");
         myAnimator.ResetTrigger("EndureFall");
@@ -179,5 +184,6 @@ public class Ball : MonoBehaviour
     {
         myRigidbody2D.gravityScale = slipGravity;
         myAnimator.SetTrigger("Slip");
+        slipParticle.Play();
     }
 }
