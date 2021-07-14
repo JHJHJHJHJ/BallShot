@@ -7,8 +7,11 @@ public class Ball : MonoBehaviour
     // Configs
     [Header("Configs")]
     [SerializeField] float moveSpeed = 3f;
-    [SerializeField] Color32 landColor;
-    [SerializeField] Color32 flyColor;
+    [SerializeField] Color32 canFlyColor;
+    [SerializeField] Color32 cannotFlyColor;
+    [SerializeField] float slipThreshold = 0.4f;
+    [SerializeField] float slipGravity = 0.2f;
+    [SerializeField] float fallGravity = 1f;
     bool canShot = true;
     bool isFlying = false;
 
@@ -21,25 +24,26 @@ public class Ball : MonoBehaviour
     [SerializeField] MMFeedbacks shotFeedback = null;
     [SerializeField] MMFeedbacks landFeedback = null;
 
-
-
     // Shot Variables
     Vector2 currentDirection;
     Vector2 collidedPos;
+    Vector2 perpendicularLine;
 
     // Components
     Rigidbody2D myRigidbody2D;
     Collider2D myCollider2D;
-    Animator myAnimator;
-
-    // FOR DEBUG
-    Vector2 perpendicularLine;
+    Animator myAnimator;    
 
     private void Awake()
     {
         myRigidbody2D = GetComponent<Rigidbody2D>();
         myCollider2D = GetComponent<Collider2D>();
         myAnimator = GetComponent<Animator>();
+    }
+
+    private void Start() 
+    {
+        myRigidbody2D.gravityScale = 0f;
     }
 
     private void Update()
@@ -83,9 +87,11 @@ public class Ball : MonoBehaviour
                 isFlying = true;
                 currentDirection = GetDirection();
 
-                body.color = flyColor;
+                body.color = cannotFlyColor;
                 myAnimator.SetTrigger("Fly");
                 shotFeedback.PlayFeedbacks();
+
+                myRigidbody2D.gravityScale = 0f;
             }
             else
             {
@@ -110,16 +116,30 @@ public class Ball : MonoBehaviour
 
         isFlying = false;
 
-        body.color = landColor;
+        body.color = canFlyColor;
         myAnimator.SetTrigger("Land");
         landFeedback.PlayFeedbacks();
 
         collidedPos = other.collider.ClosestPoint(transform.position);
         Vector2 directionToLook = (Vector2)transform.position - collidedPos;
-        
+
         transform.rotation = Quaternion.LookRotation(Vector3.forward, directionToLook);
 
         perpendicularLine = Vector3.Normalize(directionToLook);
+
+        TriggerStatus();
+    }
+
+    void TriggerStatus()
+    {
+        if (Mathf.Abs(transform.position.x - collidedPos.x) > 0 + slipThreshold)
+        {
+            myAnimator.SetTrigger("EndureSlip");
+        }
+        else if (collidedPos.y > transform.position.y)
+        {
+            myAnimator.SetTrigger("EndureFall");
+        }
     }
 
     Vector2 GetDirection()
@@ -132,21 +152,27 @@ public class Ball : MonoBehaviour
         return dir;
     }
 
-    // return : -180 ~ 180 degree (for unity)
-    float GetAngle (Vector2 vStart, Vector2 vEnd)
-    {
-        Debug.DrawRay(transform.position, vStart);
-        Debug.DrawRay(transform.position, vEnd);
-        Vector2 v = vEnd - vStart;
- 
-        return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
-    }
-
     bool IsInRange()
     {
         float shotAngle = Vector2.Angle(GetDirection(), perpendicularLine);
 
         if(shotAngle >= 90) return false;
         else return true;
+    }
+
+    ///////////////////// animation에서 실행되는 함수들
+
+    public void Fall() 
+    {
+        myRigidbody2D.gravityScale = fallGravity;
+        myAnimator.SetTrigger("Fall");
+        canShot = false;
+        body.color = cannotFlyColor;
+    }
+
+    public void Slip() 
+    {
+        myRigidbody2D.gravityScale = slipGravity;
+        myAnimator.SetTrigger("Slip");
     }
 }
