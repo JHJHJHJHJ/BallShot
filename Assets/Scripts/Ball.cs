@@ -132,6 +132,11 @@ public class Ball : MonoBehaviour
 
     void TriggerStatus()
     {
+        print(Mathf.Abs(transform.position.x - collidedPos.x));
+
+        myAnimator.ResetTrigger("EndureSlip");
+        myAnimator.ResetTrigger("EndureFall");
+
         if (Mathf.Abs(transform.position.x - collidedPos.x) > 0 + slipThreshold)
         {
             myAnimator.SetTrigger("EndureSlip");

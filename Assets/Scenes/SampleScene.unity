@@ -1855,32 +1855,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1214135787}
     - target: {fileID: 1501054460385263084, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
-      propertyPath: canFlyColor.rgba
-      value: 4283284969
-      objectReference: {fileID: 0}
-    - target: {fileID: 1501054460385263084, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
-      propertyPath: cannotFlyColor.rgba
-      value: 4283288809
-      objectReference: {fileID: 0}
-    - target: {fileID: 1501054460916320498, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1501054460916320498, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1501054461517848685, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1501054461517848685, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1501054461517848685, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
+      propertyPath: slipThreshold
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f012e2e5cc1e051418671b55fbc4d3c8, type: 3}

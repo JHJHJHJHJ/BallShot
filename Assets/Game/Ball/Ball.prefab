@@ -622,14 +622,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1600
-  landColor:
+  canFlyColor:
     serializedVersion: 2
-    rgba: 4283675125
-  flyColor:
+    rgba: 4283284969
+  cannotFlyColor:
     serializedVersion: 2
-    rgba: 4283553781
-  slipThreshold: 0.4
-  slipGravity: 0.08
+    rgba: 4283288809
+  slipThreshold: 0.3
+  slipGravity: 0.2
   fallGravity: 1
   body: {fileID: 1501054460916320460}
   aimLine: {fileID: 0}
@@ -880,7 +880,7 @@ Transform:
   m_GameObject: {fileID: 1501054461517848592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 0.9, z: 0}
   m_Children:
   - {fileID: 1501054460916320498}
   - {fileID: 1501054460974928266}
