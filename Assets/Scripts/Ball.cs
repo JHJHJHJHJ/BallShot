@@ -20,10 +20,11 @@ public class Ball : MonoBehaviour
     [SerializeField] SpriteRenderer body = null;
     [SerializeField] AimLine aimLine = null;
     [SerializeField] ParticleSystem slipParticle = null;
-    
+
     [Header("MMFeedbacks")]
     [SerializeField] MMFeedbacks shotFeedback = null;
     [SerializeField] MMFeedbacks landFeedback = null;
+    [SerializeField] MMFeedbacks cancelFeedback = null;
 
     // Shot Variables
     Vector2 currentDirection;
@@ -33,7 +34,7 @@ public class Ball : MonoBehaviour
     // Components
     Rigidbody2D myRigidbody2D;
     Collider2D myCollider2D;
-    Animator myAnimator;    
+    Animator myAnimator;
 
     private void Awake()
     {
@@ -42,9 +43,11 @@ public class Ball : MonoBehaviour
         myAnimator = GetComponent<Animator>();
     }
 
-    private void Start() 
+    private void Start()
     {
         // myRigidbody2D.gravityScale = 0f;
+        // shotFeedback.Initialization();
+        
     }
 
     private void Update()
@@ -61,6 +64,19 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         Land(other);
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.collider.CompareTag("Ground"))
+        {
+            print("GROUND");
+
+            if (!isFlying)
+            {
+                Fall();
+            }
+        }
     }
 
     ////////////////////////////////////////////////
@@ -80,10 +96,10 @@ public class Ball : MonoBehaviour
     {
         if (canShot && (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.A)))
         {
-            if(IsInRange())
+            if (IsInRange())
             {
                 canShot = false;
-                aimLine.gameObject.SetActive(false);
+                // aimLine.gameObject.SetActive(false);
 
                 body.color = cannotFlyColor;
                 myAnimator.SetTrigger("Fly");
@@ -98,7 +114,7 @@ public class Ball : MonoBehaviour
             }
             else
             {
-                myAnimator.SetTrigger("Land");
+                cancelFeedback.PlayFeedbacks();
             }
         }
     }
@@ -115,7 +131,7 @@ public class Ball : MonoBehaviour
     void Land(Collision2D other)
     {
         canShot = true;
-        aimLine.gameObject.SetActive(true);
+        // aimLine.gameObject.SetActive(true);
 
         isFlying = false;
 
@@ -138,9 +154,10 @@ public class Ball : MonoBehaviour
     void TriggerStatus()
     {
         // print(Mathf.Abs(transform.position.x - collidedPos.x));
-
         myAnimator.ResetTrigger("EndureSlip");
         myAnimator.ResetTrigger("EndureFall");
+        myAnimator.ResetTrigger("Slip");
+        myAnimator.ResetTrigger("Fall");
 
         if (Mathf.Abs(transform.position.x - collidedPos.x) > 0 + slipThreshold)
         {
@@ -166,21 +183,22 @@ public class Ball : MonoBehaviour
     {
         float shotAngle = Vector2.Angle(GetDirection(), perpendicularLine);
 
-        if(shotAngle >= 90) return false;
+        if (shotAngle >= 90) return false;
         else return true;
     }
 
     ///////////////////// animation에서 실행되는 함수들
 
-    public void Fall() 
+    public void Fall()
     {
         myRigidbody2D.gravityScale = fallGravity;
         myAnimator.SetTrigger("Fall");
         canShot = false;
+        slipParticle.Stop();
         body.color = cannotFlyColor;
     }
 
-    public void Slip() 
+    public void Slip()
     {
         myRigidbody2D.gravityScale = slipGravity;
         myAnimator.SetTrigger("Slip");
